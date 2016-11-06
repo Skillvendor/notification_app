@@ -1,0 +1,1 @@
+json.array! @notification_contents, partial: 'notification_contents/notification_content', as: :notification_content

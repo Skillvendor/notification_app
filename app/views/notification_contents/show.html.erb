@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @notification_content.title %>
+</p>
+
+<p>
+  <strong>Message body:</strong>
+  <%= @notification_content.message_body %>
+</p>
+
+<p>
+  <strong>Send to:</strong>
+  <%= @notification_content.send_to %>
+</p>
+
+<%= link_to 'Edit', edit_notification_content_path(@notification_content) %> |
+<%= link_to 'Back', notification_contents_path %>

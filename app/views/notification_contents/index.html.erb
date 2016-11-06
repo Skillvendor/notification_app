@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Notification Contents</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Message body</th>
+      <th>Send to</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @notification_contents.each do |notification_content| %>
+      <tr>
+        <td><%= notification_content.title %></td>
+        <td><%= notification_content.message_body %></td>
+        <td><%= notification_content.send_to %></td>
+        <td><%= link_to 'Show', notification_content %></td>
+        <td><%= link_to 'Edit', edit_notification_content_path(notification_content) %></td>
+        <td><%= link_to 'Destroy', notification_content, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Notification Content', new_notification_content_path %>

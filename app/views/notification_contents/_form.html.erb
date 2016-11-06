@@ -1,0 +1,37 @@
+<%= form_for notification_content, html: { multipart: true } do |f| %>
+  <% if notification_content.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(notification_content.errors.count, "error") %> prohibited this notification_content from being saved:</h2>
+
+      <ul>
+      <% notification_content.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :message_body %>
+    <%= f.text_area :message_body %>
+  </div>
+
+  <div class="field">
+    <%= f.label :send_to %>
+    <%= f.number_field :send_to %>
+  </div>
+
+  <div class="field">
+    <%= f.file_field :attachment %>
+    <%= f.hidden_field :attachment_cache %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

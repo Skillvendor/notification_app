@@ -1,0 +1,1 @@
+json.partial! "notification_contents/notification_content", notification_content: @notification_content

@@ -21,6 +21,8 @@ gem 'devise'
 gem 'factory_girl_rails', '4.2.1'
 gem 'faker', '1.3.0'
 
+gem 'carrierwave'
+
 gem 'houston'
 
 # Use jquery as the JavaScript library
