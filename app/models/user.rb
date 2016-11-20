@@ -5,4 +5,5 @@ class User < ApplicationRecord
   include DeviseTokenAuth::Concerns::User
 
   has_many :notifications
+  has_many :devices
 end

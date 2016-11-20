@@ -4,15 +4,21 @@ class NotificationContentsController < ApplicationController
   # POST /notification_contents
   # POST /notification_contents.json
   def create
-    @notification_content = NotificationContent.new(notification_content_params)
+    @user = User.all
 
-    respond_to do |format|
-      if @notification_content.save
-        format.json { render :show, status: :created, location: @notification_content }
-      else
-        format.json { render json: @notification_content.errors, status: :unprocessable_entity }
-      end
+    if params[:serie]
+      @user = @user.where('groups @> [{ serie: ? }]', params[:serie])
     end
+
+    if params[:year]
+      @user = @user.where('groups @> [{ year: ? }]', params[:year])
+    end
+
+    if params[:group_number]
+      @user = @user.where('grops @> [{ group_number: > }]', params[:group_number])
+    end
+
+    @notification_content = NotificationContent.new(notification_content_params)
   end
 
   private
@@ -23,6 +29,6 @@ class NotificationContentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_content_params
-      params.require(:notification_content).permit(:title, :message_body, :send_to, :attachment_cache, :attachment, {attachments: []})
+      params.require(:notification_content).permit(:title, :message_body, :attachment_cache, :attachment, {attachments: []})
     end
 end

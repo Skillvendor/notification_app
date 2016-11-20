@@ -17,6 +17,7 @@ module Overrides
         
         add_token
         if @resource.save
+          add_device_if_present
           log_in
         else
           clean_up_passwords @resource
@@ -28,6 +29,12 @@ module Overrides
     end
 
     protected
+
+    def add_device_if_present
+      if params[:device_uuid] && !@resource.devices.where(uuid: params[:device_uuid]).present?
+        @resource.devices.create(uuid: params[:device_uuid])
+      end
+    end
 
     def log_in
       update_auth_header
@@ -55,8 +62,17 @@ module Overrides
     end
 
     def creation_params
-      valid_keys = %w(last_name first_name email)
-      @response['data']['user'].slice!(*valid_keys)
+      valid_keys_user = %w(last_name first_name email)
+      valid_keys_group_data = %w(serie year specialization management_id group_number)
+      @response['data']['user'].slice!(*valid_keys_user)
+      if @response['data']['extra']['groups']['data']
+        @response['data']['extra']['groups']['data'].each do |group_data|
+          group_data.slice!(*valid_keys_group_data)
+        end
+      end
+      
+      @response['data']['user']['groups'] = {}
+      @response['data']['user']['groups']['data'] = @response['data']['extra']['groups']['data']
       @response['data']['user']
     end
   end
