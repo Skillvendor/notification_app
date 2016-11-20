@@ -17,9 +17,14 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem 'pry'
 
-gem 'devise'
+gem 'devise_token_auth'
+gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'factory_girl_rails', '4.2.1'
 gem 'faker', '1.3.0'
+
+gem 'rest-client', '~> 1.8'
+
+gem 'active_model_serializers'
 
 gem 'carrierwave'
 
