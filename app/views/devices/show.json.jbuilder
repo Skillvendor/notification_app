@@ -1,0 +1,1 @@
+json.partial! "devices/device_content", device_content: @device

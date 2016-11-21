@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   }
   resources :notifications, except: [:update]
   resources :notification_contents, except: [:update]
+  resources :devices, only: [:update]
 end

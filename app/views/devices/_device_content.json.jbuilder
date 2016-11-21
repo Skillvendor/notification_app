@@ -1,0 +1,1 @@
+json.extract! device_content, :uuid, :token, :created_at, :updated_at
