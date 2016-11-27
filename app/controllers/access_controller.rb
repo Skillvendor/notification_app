@@ -1,4 +1,5 @@
 class AccessController < ApplicationController
+  before_action :authenticate_user!
   before_action :check_role_master
   before_action :set_updatable_user
 
@@ -21,11 +22,6 @@ class AccessController < ApplicationController
     end
 
     def set_updatable_user
-      @user = User.find(params[:user][:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def notification_params
-      params.require(:notification).permit(:title, :body, :user_id, :expired)
+      @user = User.find(params[:id])
     end
 end

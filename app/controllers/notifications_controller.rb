@@ -1,10 +1,11 @@
 class NotificationsController < ApplicationController
+  before_action :authenticate_user! 
   before_action :set_notification, only: [:show, :edit, :destroy]
 
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.where(user_id: params[:user_id], expired: false)
+    @notifications = Notification.where(user_id: current_user.id, expired: false)
   end
 
   # GET /notifications/1
@@ -18,7 +19,6 @@ class NotificationsController < ApplicationController
     @notification.expired = true
     @notification.save
     respond_to do |format|
-      format.html { redirect_to notifications_url, notice: 'Notification was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -26,7 +26,7 @@ class NotificationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_notification
-      @notification = Notification.find(params[:id])
+      @notification = Notification.where(id: params[:id], user_id: current_user.id).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

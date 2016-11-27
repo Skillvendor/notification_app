@@ -4,6 +4,8 @@ class NotificationContent < ApplicationRecord
   validates :title, presence: true
   validates :message_body, presence: true
 
+  after_create :create_notifications
+
   mount_uploader :attachment, AttachmentUploader
 
   def create_notifications
