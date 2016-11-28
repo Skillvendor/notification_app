@@ -22,6 +22,8 @@ gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'factory_girl_rails', '4.2.1'
 gem 'faker', '1.3.0'
 
+gem 'rack-cors', :require => 'rack/cors'
+
 gem 'rest-client', '~> 1.8'
 
 gem 'active_model_serializers'

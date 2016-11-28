@@ -18,6 +18,7 @@ module Overrides
         add_token
         if @resource.save
           add_device_if_present
+          update_auth_header
           log_in
         else
           clean_up_passwords @resource
