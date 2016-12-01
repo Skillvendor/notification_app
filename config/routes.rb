@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :admins
   resources :members
   resources :groups
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
@@ -7,4 +8,5 @@ Rails.application.routes.draw do
   resources :notifications, except: [:update]
   resources :notification_contents, except: [:update]
   resources :devices, only: [:update]
+  resources :access, only: [:update]
 end

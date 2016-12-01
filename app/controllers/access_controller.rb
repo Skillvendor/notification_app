@@ -1,5 +1,4 @@
 class AccessController < ApplicationController
-  before_action :authenticate_user!
   before_action :check_role_master
   before_action :set_updatable_user
 
@@ -17,8 +16,8 @@ class AccessController < ApplicationController
 
   private
 
-    def check_role
-      current_user.role == 'Master'
+    def check_role_master
+      current_admin.role == 'Master'
     end
 
     def set_updatable_user

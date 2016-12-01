@@ -73,7 +73,7 @@ module Overrides
       end
       
       @response['data']['user']['groups'] = {}
-      @response['data']['user']['groups']['data'] = @response['data']['extra']['groups']['data']
+      @response['data']['user']['groups'] = @response['data']['extra']['groups']['data']
       @response['data']['user']
     end
   end

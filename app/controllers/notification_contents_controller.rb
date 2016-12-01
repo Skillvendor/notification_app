@@ -11,17 +11,17 @@ class NotificationContentsController < ApplicationController
     else
       @users = User.all
 
-      # if params[:serie]
-      #   @user = @user.where('groups @> [{ serie: ? }]', params[:serie])
-      # end
+      if params[:serie]
+        @users = @users.where('groups @> ?', '[{ "serie":' + params[:serie].to_s + ' }]' )
+      end
 
-      # if params[:year]
-      #   @user = @user.where('groups @> [{ year: ? }]', params[:year])
-      # end
+      if params[:year]
+        @users = @users.where('groups @> ?', '[{ "year":' + params[:year].to_s + ' }]' )
+      end
 
-      # if params[:group_number]
-      #   @user = @user.where('grops @> [{ group_number: > }]', params[:group_number])
-      # end
+      if params[:group_number]
+        @users = @users.where('groups @> ?', '[{ "group_number":' + params[:group_number].to_s + ' }]' )
+      end
 
       @ids = @users.map(&:id)
     end
@@ -43,6 +43,6 @@ class NotificationContentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def notification_content_params
-      params.require(:notification_content).permit(:title, :message_body, send_to: [], :attachment_cache, :attachment, {attachments: []})
+      params.require(:notification_content).permit(:title, :message_body, :attachment_cache, :attachment, {attachments: []})
     end
 end
