@@ -1,5 +1,5 @@
 class NotificationContentsController < ApplicationController
-  before_action :check_role_admin
+  before_action :check_role
   before_action :set_notification_content, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -56,6 +56,12 @@ class NotificationContentsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def check_role_admin
       current_admin
+    end
+
+    def check_role_master
+      unless current_admin && )current_admin.role == 'Master' || current_admin.role == 'Admin')
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
