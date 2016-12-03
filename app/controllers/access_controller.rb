@@ -1,26 +1,40 @@
 class AccessController < ApplicationController
   before_action :check_role_master
-  before_action :set_updatable_user
+  before_action :set_admin, only: [:update]
+
+  def index 
+    @admins = Admin.where("role != ? ", 'Master')
+  end
 
   def update
-    @user.role = 'Admin'
+    @admin.role = 'Admin'
 
     respond_to do |format|
-      if @user.save
-        format.json { render :show, status: :created, location: @user }
+      if @admin.save
+        format.html { redirect_to access_index_path }
       else
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json { render json: @admin.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @admin.destroy
+    respond_to do |format|
+      format.html { redirect_to access_url, notice: 'Admin was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
   private
 
     def check_role_master
-      current_admin.role == 'Master'
+      unless current_admin && current_admin.role == 'Master'
+        redirect_to root_path
+      end
     end
 
-    def set_updatable_user
-      @user = User.find(params[:id])
+    def set_admin
+      @admin = Admin.find(params[:id])
     end
 end

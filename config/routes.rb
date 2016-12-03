@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root to: "home#index"
   devise_for :admins
   resources :members
   resources :groups
@@ -8,5 +9,5 @@ Rails.application.routes.draw do
   resources :notifications, except: [:update]
   resources :notification_contents, except: [:update]
   resources :devices, only: [:update]
-  resources :access, only: [:update]
+  resources :access
 end

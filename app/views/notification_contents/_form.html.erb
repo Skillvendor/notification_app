@@ -22,8 +22,18 @@
   </div>
 
   <div class="field">
-    <%= f.label :send_to %>
-    <%= f.number_field :send_to %>
+    <%= f.label :serie %>
+    <%= select_tag :serie, options_for_select(@series), include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :year %>
+    <%= select_tag :year, options_for_select(@years), include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= f.label :group_number %>
+    <%= select_tag :group_number, options_for_select(@group_numbers), include_blank: true %>
   </div>
 
   <div class="field">

@@ -23,6 +23,8 @@ gem 'omniauth', '~> 1.3', '>= 1.3.1'
 gem 'factory_girl_rails', '4.2.1'
 gem 'faker', '1.3.0'
 
+gem 'bootstrap', '~> 4.0.0.alpha5'
+
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'rest-client', '~> 1.8'
