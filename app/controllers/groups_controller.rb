@@ -75,7 +75,40 @@ class GroupsController < ApplicationController
   end
 
   def add_members
-    @users = User.joins('LEFT JOIN members on users.id = members.user_id').where('members.group_id IS NULL')
+    @users = User.where("users.id NOT IN (select members.user_id from members where members.group_id = ?)", params[:id])
+
+    if params[:serie] && params[:serie].present?
+      @users = @users.where('groups @> ?', '[{ "serie":' + params[:serie].to_s + ' }]' )
+    end
+
+    if params[:year] && params[:year].present?
+      @users = @users.where('groups @> ?', '[{ "year":' + params[:year].to_s + ' }]' )
+    end
+
+    if params[:group_number] && params[:group_number].present?
+      @users = @users.where('groups @> ?', '[{ "group_number":' + params[:group_number].to_s + ' }]' )
+    end
+
+    if params[:group] && params[:group].present?
+      @users = @users.joins(:memberships).where('members.group_id = ?', params[:group])
+    end
+
+    @series = []
+    @years = []
+    @group_numbers = []
+    User.all.find_in_batches(batch_size: 500).each do |batch|
+      batch.each do |user|
+        user.groups.each do |user_hash|
+          @series << user_hash['serie']
+          @years << user_hash['year']
+          @group_numbers << user_hash['group_number']
+        end
+      end
+    end
+
+    @series = @series.uniq
+    @years = @years.uniq
+    @group_numbers = @group_numbers.uniq
   end
 
   def add_member
