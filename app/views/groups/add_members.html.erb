@@ -38,6 +38,8 @@
 <% end %>
 
 
+<%= link_to 'Add all selected users', bulk_add_group_path(@group, params.permit(:first_name, :last_name, :serie, :year, :group_number, :group)), method: :post, data: { confirm: 'Are you sure?' } %>
+
 <table>
   <thead>
     <tr>

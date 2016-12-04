@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       delete :delete_member
       get :add_members
       post :add_member
+      post :bulk_add
     end
   end
   mount_devise_token_auth_for 'User', at: 'auth', controllers: {
