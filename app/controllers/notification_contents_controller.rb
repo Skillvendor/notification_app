@@ -28,16 +28,20 @@ class NotificationContentsController < ApplicationController
     else
       @users = User.all
 
-      if params[:serie]
+      if params[:serie] && params[:serie].present?
         @users = @users.where('groups @> ?', '[{ "serie":' + params[:serie].to_s + ' }]' )
       end
 
-      if params[:year]
+      if params[:year] && params[:year].present?
         @users = @users.where('groups @> ?', '[{ "year":' + params[:year].to_s + ' }]' )
       end
 
-      if params[:group_number]
+      if params[:group_number] && params[:group_number].present?
         @users = @users.where('groups @> ?', '[{ "group_number":' + params[:group_number].to_s + ' }]' )
+      end
+
+      if params[:group] && params[:group].present?
+        @users = @users.joins(:memberships).where('members.group_id = ?', params[:group])
       end
 
       @ids = @users.map(&:id)
@@ -53,13 +57,8 @@ class NotificationContentsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def check_role_admin
-      current_admin
-    end
-
-    def check_role_master
-      unless current_admin && )current_admin.role == 'Master' || current_admin.role == 'Admin')
+    def check_role
+      unless current_admin && (current_admin.role == 'Master' || current_admin.role == 'Admin')
         redirect_to root_path
       end
     end

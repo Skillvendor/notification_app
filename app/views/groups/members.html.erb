@@ -1,0 +1,32 @@
+<h1> Members </h1>
+
+<h3> <%= @group.name %> </h3>
+<table>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Series</th>
+      <th>Year</th>
+      <th>Group Number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @members.each do |member| %>
+      <tr>
+        <td><%= member.first_name %></td>
+        <td><%= member.last_name %> </td>
+        <td><%= member.groups.map{ |el| el['serie']} %></td>
+        <td><%= member.groups.map{ |el| el['year']} %></td>
+        <td><%= member.groups.map{ |el| el['group_number']} %></td>
+        <td><%= link_to 'Delete', delete_member_group_path(@group, user_id: member.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Add Members', add_members_group_path(@group) %>

@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1> Users </h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Series</th>
+      <th>Year</th>
+      <th>Group Number</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.first_name %></td>
+        <td><%= user.last_name %> </td>
+        <td><%= user.groups.map{ |el| el['serie']} %></td>
+        <td><%= user.groups.map{ |el| el['year']} %></td>
+        <td><%= user.groups.map{ |el| el['group_number']} %></td>
+        <td><%= link_to 'Add to Group', add_member_group_path(@group, user_id: user.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

@@ -6,7 +6,10 @@
         <li><%= link_to "Home", root_path %></li>
         <% if current_admin.present? %>
           <li><%= link_to "Notifications", new_notification_content_path %></li>
-          <li><%= link_to "Admins", access_index_path%></li>
+          <li><%= link_to "Groups", groups_path %></li>
+          <% if current_admin && current_admin.role == 'Master' %>
+            <li><%= link_to "Admins", access_index_path%></li>
+          <% end %>
           <%= link_to "Log out", destroy_admin_session_path, method: "delete" %>
         <% else %>
           <li><%= link_to "Log in", new_admin_session_path %></li>

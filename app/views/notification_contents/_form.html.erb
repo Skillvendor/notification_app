@@ -37,6 +37,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :group %>
+    <%= select_tag :group, options_from_collection_for_select(Group.all, :id, :name), include_blank: true %>
+  </div>
+
+  <div class="field">
     <%= f.file_field :attachment %>
     <%= f.hidden_field :attachment_cache %>
   </div>
