@@ -5,6 +5,16 @@
 
 <%= form_tag(add_members_group_path, method: :get) do %>
   <div class="field">
+    <%= label_tag :FirstName %>
+    <%= text_field_tag :first_name, params[:first_name], placeholder: 'first_name' %>
+  </div>
+
+  <div class="field">
+    <%= label_tag :LastName %>
+    <%= text_field_tag :last_name, params[:last_name], placeholder: 'last_name' %>
+  </div>
+
+  <div class="field">
     <%= label_tag :serie %>
     <%= select_tag :serie, options_for_select(@series, params[:serie]), include_blank: true %>
   </div>

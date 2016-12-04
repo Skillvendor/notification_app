@@ -77,6 +77,14 @@ class GroupsController < ApplicationController
   def add_members
     @users = User.where("users.id NOT IN (select members.user_id from members where members.group_id = ?)", params[:id])
 
+    if params[:first_name] && params[:first_name].present?
+      @user = @user.where(first_name: params[:first_name])
+    end
+
+    if params[:last_name] && params[:last_name].present?
+      @user = @user.where(last_name: params[:last_name])
+    end
+
     if params[:serie] && params[:serie].present?
       @users = @users.where('groups @> ?', '[{ "serie":' + params[:serie].to_s + ' }]' )
     end
