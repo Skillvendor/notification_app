@@ -16,6 +16,7 @@ class NotificationContent < ApplicationRecord
         notification.body = self.message_body
         notification.user_id = user_id
         notification.attachment_url = self.attachment.url
+        notification.is_image = %w(jpg jpeg gif png).include?(self.attachment.file.extension.downcase)
         notification.notification_content_id = self.id
         notification.save!
       rescue

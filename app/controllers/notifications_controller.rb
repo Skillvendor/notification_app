@@ -4,7 +4,7 @@ class NotificationsController < ApplicationController
   # GET /notifications
   # GET /notifications.json
   def index
-    @notifications = Notification.where(user_id: 1, expired: false)
+    @notifications = Notification.where(user_id: current_user.id, expired: false)
   end
 
   # GET /notifications/1
