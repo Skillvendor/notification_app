@@ -17,4 +17,6 @@ Rails.application.routes.draw do
   resources :notification_contents, except: [:update]
   resources :devices, only: [:update]
   resources :access
+
+  resources :user
 end
