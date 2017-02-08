@@ -24,8 +24,8 @@ module Overrides
           clean_up_passwords @resource
           render status: :unprocessable_entity, json: { errors: @resource.errors}
         end
-      else
-        render status: :unprocessable_entity, json: {}
+      elsif @response['status'] == 'error'
+        render status: :unprocessable_entity, json: { message: @response['message'] }
       end
     end
 
